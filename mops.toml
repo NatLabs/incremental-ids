@@ -17,3 +17,4 @@ fuzz = "0.2.1"
 
 [toolchain]
 wasmtime = "27.0.0"
+moc = "0.13.5"

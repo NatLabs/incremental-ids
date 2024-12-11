@@ -18,7 +18,7 @@ In many use cases, there is a need to generate sequential Nat Ids. However, rele
   let bar_ids = Ids.create(ids, "bar");
 
   assert Ids.next(ids, "foo") == 0;
-  assert Ids.next(foo_ids) == 1;
+  assert Ids.next(ids, "foo") == 1;
   assert Ids.next(ids, "foo") == 2;
 
   Ids.release(ids, "foo", 1);

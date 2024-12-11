@@ -5,8 +5,6 @@ module {
     public type Map<K, V> = Map.Map<K, V>;
     public type Set<T> = Set.Set<T>;
 
-    let { thash } = Map;
-
     /// Id Generator
     public type Generator = {
         var next_id : Nat;
