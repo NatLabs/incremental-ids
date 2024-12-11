@@ -1,12 +1,31 @@
-## [New Motoko Library]
-This template is a version of [motoko-library-template](https://github.com/kritzcreek/motoko-library-template) that uses the [motoko-unit-tests](https://github.com/krpeacock/motoko-unit-tests) library in the [tests/utils](./tests/utils/ActorSpec.mo) directory
+## Incremental Ids
 
-### Makefile Commands
-- `make test` 
-  - runs your motoko tests by interpreting the code with the motoko compiler
-  - Tests files have to be in the `/tests` directory and end with `.Test.mo`
-- `make doc` 
-  - creates html and markdown documentation from your inline comments (comments starting with 3 backslashes `///`)
+Generates and manages reusable sequential Nat IDs starting from 0.
 
-### Github Actions
-- Actions for running tests every time there is a push or pull request to the `main` branch
+### Motivation
+
+In many use cases, there is a need to generate sequential Nat Ids. However, releasing some of these IDs can lead to gaps or holes in the sequence. To avoid these gaps and ensure full utilization of the available IDs, a mechanism to reuse the released IDs is necessary. This library addresses this issue by providing a common solution for generating and managing these ids with the ability to release and reuse them.
+
+### Usage
+
+```motoko
+
+  import Ids "mo:incremental-ids";
+
+  stable let ids = Ids.new();
+
+  let foo_ids = Ids.create(ids, "foo");
+  let bar_ids = Ids.create(ids, "bar");
+
+  assert Ids.next(ids, "foo") == 0;
+  assert Ids.next(foo_ids) == 1;
+  assert Ids.next(ids, "foo") == 2;
+
+  Ids.release(ids, "foo", 1);
+  assert Ids.next(ids, "foo") == 1;
+
+  assert Ids.Gen.next(bar_ids) == 0;
+
+```
+
+Can access the id generator by name (`Ids.next(ids, "foo")`) or by reference (`Ids.Gen.next(foo_ids)`).

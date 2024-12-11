@@ -1,7 +1,19 @@
+[package]
+name = "incremental-ids"
+description = "Generates and manages reusable sequential Nat IDs starting from 0."
+repository = "https://github.com/NatLabs/incremental-ids"
+version = "0.0.1"
+license = "MIT"
+keywords = [ "util" ]
+
 [dependencies]
-base = "0.10.2"
+base = "0.13.2"
+map = "9.0.1"
 
 [dev-dependencies]
-test = "1.0.1"
+test = "2.0.0"
 bench = "1.0.0"
-fuzz = "0.1.0"
+fuzz = "0.2.1"
+
+[toolchain]
+wasmtime = "27.0.0"
